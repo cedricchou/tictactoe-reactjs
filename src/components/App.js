@@ -3,11 +3,24 @@ import './app.css';
 
 export default class App extends Component {
 
+    constructor() {
+        super ();
+        this.state = {
+            sign: "X"
+        }
+    }
+    
+    clicked(event) {
+        event.target.innerHTML = this.state.sign;
+        this.setState({
+            sign: this.state.sign === "X" ? "O" : "X"
+        })
+    }
 
     render() {
         return (
-            <div>
-                <div id="game-board">
+            <div id="main-div">
+                <div id="game-board" onClick={(e)=>this.clicked(e)}>
                     <div className="cell" id="cell1"></div>
                     <div className="cell" id="cell2"></div>
                     <div className="cell" id="cell3"></div>
