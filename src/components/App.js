@@ -6,7 +6,9 @@ export default class App extends Component {
     super();
     this.state = {
       sign: "X",
-      array: Array(9).fill("")
+      array: Array(9).fill(""),
+      endOfGame: false,
+      winner: undefined
     };
   }
 
@@ -18,6 +20,41 @@ export default class App extends Component {
         sign: this.state.sign === "X" ? "O" : "X",
         array: this.state.array
       });
+    }
+    const result = this.winner();
+    if (result === "X") {
+      this.setState({
+        endOfGame: true,
+        winner: "X"
+      });
+      console.log(`The winner is X`);
+    } else if (result === "X") {
+      this.setState({
+        endOfGame: true,
+        winner: "O"
+      });
+      console.log(`The winner is O`);
+    }
+  }
+
+  winner() {
+    const winningCombo = [
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 4, 8],
+      [2, 4, 6]
+    ];
+    const array = this.state.array;
+    for (let i = 0; i < winningCombo.length; i++) {
+      if (
+        array[winningCombo[i][0]] === array[winningCombo[i][1]] &&
+        array[winningCombo[i][1]] === array[winningCombo[i][2]]
+      )
+        return array[winningCombo[i][0]];
     }
   }
 
