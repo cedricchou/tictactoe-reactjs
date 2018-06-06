@@ -1,7 +1,11 @@
 {
   "name": "tictactoe-reactjs",
-  "version": "0.1.0",
+  "version": "1.7.0",
   "private": true,
+  "engines": {
+    "yarn": "1.6.0",
+    "node": "8.9.4"
+  },
   "dependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
