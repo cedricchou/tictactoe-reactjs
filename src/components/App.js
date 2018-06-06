@@ -6,52 +6,13 @@ export default class App extends Component {
     super();
     this.state = {
       sign: "X",
-      array: Array(9).fill(""),
+      array: Array(9).fill(null),
       endOfGame: false,
       winner: undefined,
       moves: 0,
       gameStatus: ""
     };
-  }
-
-  clicked(event) {
-    if (this.state.array[event.target.dataset.cell] === "") {
-      this.state.array[event.target.dataset.cell] = this.state.sign;
-      event.target.innerHTML = this.state.sign;
-      this.setState({
-        sign: this.state.sign === "X" ? "O" : "X",
-        array: this.state.array,
-        moves: this.state.moves + 1
-      });
-      if (this.state.endOfGame !== false) {
-        event.target.innerHTML = "";
-      }
-    }
-
-    const result = this.winner();
-    if (result === "X") {
-      this.setState({
-        endOfGame: true,
-        winner: "X",
-        gameStatus: "The winner is X"
-      });
-    } else if (result === "O") {
-      this.setState({
-        endOfGame: true,
-        winner: "O",
-        gameStatus: "The winner is O"
-      });
-    } else if (
-      result === "draw" &&
-      this.state.winner !== "X" &&
-      this.state.winner !== "O"
-    ) {
-      this.setState({
-        endOfGame: true,
-        winner: "draw",
-        gameStatus: "No winner, the game is a draw"
-      });
-    }
+    this.restart = this.restart.bind(this);
   }
 
   winner() {
@@ -74,10 +35,67 @@ export default class App extends Component {
         return array[winningCombo[i][0]];
       }
 
-      if (this.state.moves === 8) {
+      if (this.state.moves === 9) {
         return "draw";
       }
     }
+  }
+
+  clicked(event) {
+    if (this.state.array[event.target.dataset.cell] === null) {
+      this.state.array[event.target.dataset.cell] = this.state.sign;
+      event.target.innerHTML = this.state.sign;
+      this.setState({
+        sign: this.state.sign === "X" ? "O" : "X",
+        array: this.state.array,
+        moves: this.state.moves + 1
+      });
+      console.log(this.state.moves);
+      if (this.state.endOfGame !== false) {
+        event.target.innerHTML = null;
+      }
+    }
+
+    const result = this.winner();
+    if (result === "X") {
+      this.setState({
+        endOfGame: true,
+        winner: "X",
+        gameStatus: "The winner is X"
+      });
+    } else if (result === "O") {
+      this.setState({
+        endOfGame: true,
+        winner: "O",
+        gameStatus: "The winner is O"
+      });
+    } else if (
+      result === "draw" &&
+      this.state.winner !== "X" &&
+      this.state.winner !== "O"
+    ) {
+      setTimeout(() => {
+        this.setState({
+          endOfGame: true,
+          winner: "draw",
+          gameStatus: "The game is a draw, please click new game to play again"
+        });
+      }, 0);
+    }
+  }
+
+  restart() {
+    this.setState({
+      sign: "X",
+      array: Array(9).fill(null),
+      endOfGame: false,
+      winner: undefined,
+      moves: 0,
+      gameStatus: ""
+    });
+    document.querySelectorAll(".cell").forEach(node => {
+      node.innerHTML = "";
+    });
   }
 
   render() {
@@ -96,6 +114,9 @@ export default class App extends Component {
             <div className="cell" data-cell="7" id="cell8" />
             <div className="cell" data-cell="8" id="cell9" />
           </div>
+          <button type="submit" onClick={this.restart}>
+            New Game
+          </button>
         </div>
       </div>
     );
