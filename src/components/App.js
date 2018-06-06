@@ -34,10 +34,6 @@ export default class App extends Component {
       ) {
         return array[winningCombo[i][0]];
       }
-
-      if (this.state.moves === 9) {
-        return "draw";
-      }
     }
   }
 
@@ -69,18 +65,12 @@ export default class App extends Component {
         winner: "O",
         gameStatus: "The winner is O"
       });
-    } else if (
-      result === "draw" &&
-      this.state.winner !== "X" &&
-      this.state.winner !== "O"
-    ) {
-      setTimeout(() => {
-        this.setState({
-          endOfGame: true,
-          winner: "draw",
-          gameStatus: "The game is a draw, please click new game to play again"
-        });
-      }, 0);
+    } else if (this.state.moves === 8) {
+      this.setState({
+        endOfGame: true,
+        winner: "draw",
+        gameStatus: "The game is a draw"
+      });
     }
   }
 
