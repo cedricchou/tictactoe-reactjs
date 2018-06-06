@@ -23,7 +23,11 @@ export default class App extends Component {
         array: this.state.array,
         moves: this.state.moves + 1
       });
+      if (this.state.endOfGame !== false) {
+        event.target.innerHTML = "";
+      }
     }
+
     const result = this.winner();
     if (result === "X") {
       this.setState({
@@ -31,13 +35,17 @@ export default class App extends Component {
         winner: "X",
         gameStatus: "The winner is X"
       });
-    } else if (result === "X") {
+    } else if (result === "O") {
       this.setState({
         endOfGame: true,
         winner: "O",
         gameStatus: "The winner is O"
       });
-    } else if (result === "draw") {
+    } else if (
+      result === "draw" &&
+      this.state.winner !== "X" &&
+      this.state.winner !== "O"
+    ) {
       this.setState({
         endOfGame: true,
         winner: "draw",
