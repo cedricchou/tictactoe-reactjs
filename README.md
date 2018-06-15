@@ -1,4 +1,4 @@
-The populat tictactoe game built with ReactJS:
+The popular tictactoe game built with ReactJS:
 
 To play it on your local machine:
 
