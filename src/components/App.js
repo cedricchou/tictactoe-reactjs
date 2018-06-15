@@ -48,7 +48,7 @@ export default class App extends Component {
         winner: "O",
         gameStatus: "The winner is O"
       });
-    } else if (this.state.moves === 8) {
+    } else if (this.state.moves === 9) {
       this.setState({
         endOfGame: true,
         winner: "draw",
