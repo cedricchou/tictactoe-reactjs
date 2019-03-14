@@ -8,6 +8,6 @@ To play it on your local machine:
 
 Alternatively go to:
 
-https://tictactoejs-june2018.herokuapp.com/
+https://tictactoe-reactjs.netlify.com
 
 Have fun!
